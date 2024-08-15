@@ -1,18 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from './../provider/AuthProvider';
-import { FaEdit, FaTrash } from 'react-icons/fa'; // Importing necessary icons
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
 
 const MyAddedFood = () => {
     const [myData, setMyData] = useState([]);
     const { user } = useContext(AuthContext);
+    const [modal, setModal] = useState(false);
+    const [editFood, setEditFood] = useState({});
 
     useEffect(() => {
-        
-        
+        getAllFoodData();
     }, [user]);
-
 
     const getAllFoodData = async () => {
         try {
@@ -22,31 +23,187 @@ const MyAddedFood = () => {
             console.error("Error fetching data:", error);
         }
     };
-   
-    getAllFoodData();
-
-    
-
-    const handleUpdate = (id) => {
-        console.log(`Update item with id: ${id}`);
-    };
 
     const handleDelete = async (id) => {
-
         try {
-            const { data } = axios.delete(`${import.meta.env.VITE_API_URL}/food/user/${id}`)
-            toast.success("Deleted Success")
-            getAllFoodData()
-        } catch (err){
+            await axios.delete(`${import.meta.env.VITE_API_URL}/food/user/${id}`);
+            toast.success("Deleted Successfully");
+            getAllFoodData();
+        } catch (err) {
             console.log(err.message);
-            toast.error(err.message)
+            toast.error(err.message);
         }
+    };
+
+
+    const handleUpdate = async (e) => {
         
-        console.log(`Delete item with id: ${id}`);
+        e.preventDefault();
+        const form = e.target;
+
+        const foodName = form.foodName.value;
+        const foodImage = form.foodImage.value;
+        const foodCategory = form.foodCategory.value;
+        const quantity = form.quantity.value;
+        const price = parseFloat(form.price.value);
+        const addedBy = user?.email;
+        const foodOrigin = form.foodOrigin.value;
+        const description = form.description.value;
+
+        
+        const updateFood = {
+            foodName,
+            foodImage,
+            foodCategory,
+            quantity,
+            price,
+            addedBy,
+            foodOrigin,
+            description,
+        };
+
+
+        try{
+            const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/food/user/${editFood._id}`, updateFood)
+            toast.success("Update Success")
+            getAllFoodData();
+
+        }
+        catch (error){
+            console.log(error);
+        }
+            
+    };
+
+
+
+
+
+    const handleEditClick = (food) => {
+        setModal(true);
+        setEditFood(food)
+        console.log(food);
+
+    };
+
+    const Modal = ({ food }) => {
+        return (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+                <div className="bg-gray-800 rounded-lg p-8 shadow-lg">
+                    <h1 className="text-2xl font-bold mb-4 text-white">Update Food Item</h1>
+                    <form onSubmit={handleUpdate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Form Fields */}
+                        <div className="mb-4">
+                            <label className="block text-gray-300">Food Name</label>
+                            <input
+                                defaultValue={editFood?.foodName}
+                                name="foodName"
+                                type="text"
+                                className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-300">Food Image URL</label>
+                            <input
+                                defaultValue={editFood?.foodImage}
+                                name="foodImage"
+                                type="text"
+                                className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-300">Food Category</label>
+                            <input
+                                defaultValue={editFood?.foodCategory}
+                                name="foodCategory"
+                                type="text"
+                                className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-300">Quantity</label>
+                            <input
+                                defaultValue={editFood?.quantity}
+                                name="quantity"
+                                type="number"
+                                className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                                min="1"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-300">Price</label>
+                            <input
+                                defaultValue={editFood?.price}
+                                name="price"
+                                type="number"
+                                className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-300">Added By</label>
+                            <input
+                                defaultValue={user?.email}
+                                readOnly
+                                type="text"
+                                className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-300">Food Origin (Country)</label>
+                            <input
+                                defaultValue={editFood?.foodOrigin}
+                                name="foodOrigin"
+                                type="text"
+                                className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4 col-span-1 md:col-span-2">
+                            <label className="block text-gray-300">Description</label>
+                            <textarea
+                                defaultValue={editFood?.description}
+                                name="description"
+                                className="resize-none w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                                rows="4"
+                                required
+                            />
+                        </div>
+                        <div className="col-span-1 md:col-span-2 text-center">
+                            <button
+                                type="button"
+                                className="bg-red-500 text-white font-bold rounded px-4 py-2 hover:bg-red-400"
+                                onClick={() => setModal(false)}
+                            >
+                                Close
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setTimeout(() => {
+                                        setModal(false);
+                                    }, 100);
+                                }}
+
+                                type="submit"
+                                className="ml-4 bg-green-500 text-white font-bold rounded px-4 py-2 hover:bg-green-400"
+                            >
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        );
     };
 
     return (
-        <div className="overflow-x-auto p-10 bg-gray-900 text-gray-300">
+        <div className={`${modal && "h-[120vh]"} overflow-x-auto p-10 bg-gray-900 backdrop-blur-lg text-gray-300 relative`}>
+            {modal && <Modal />}
             {myData && myData.length > 0 ? (
                 <table className="min-w-full divide-y divide-gray-700">
                     <thead className='bg-gray-700'>
@@ -59,26 +216,24 @@ const MyAddedFood = () => {
                         </tr>
                     </thead>
                     <tbody className="bg-gray-800 divide-y divide-gray-700">
-                        {
-                            myData.map((food) => (
-                                <tr key={food._id}>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <img src={food.foodImage} alt={food.foodName} className="h-12 w-12 rounded-md" />
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{food.foodName}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{food.foodCategory}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">${food.price}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap flex items-center">
-                                        <button onClick={() => handleUpdate(food._id)} className="text-blue-500 hover:text-blue-300">
-                                            <FaEdit size={20} />
-                                        </button>
-                                        <button onClick={() => handleDelete(food._id)} className="ml-4 text-red-500 hover:text-red-300">
-                                            <FaTrash size={20} />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
+                        {myData.map((food) => (
+                            <tr key={food._id}>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <img src={food.foodImage} alt={food.foodName} className="h-12 w-12 rounded-md" />
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">{food.foodName}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{food.foodCategory}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">${food.price}</td>
+                                <td className="px-6 py-4 whitespace-nowrap flex items-center">
+                                    <button onClick={() => handleEditClick(food)} className="text-blue-500 hover:text-blue-300">
+                                        <FaEdit size={20} />
+                                    </button>
+                                    <button onClick={() => handleDelete(food._id)} className="ml-4 text-red-500 hover:text-red-300">
+                                        <FaTrash size={20} />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             ) : (
