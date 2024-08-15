@@ -15,12 +15,12 @@ const Nav = () => {
 
   const links = (
     <>
-      <li className="hover:-translate-y-2 hover:ease-in duration-300">
+      <li className="">
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? "md:text-[16px] text-[12px] p-1 text-red-500 md:font-bold"
-              : "md:text-[16px] text-[12px] p-1 md:font-bold  hover:ease-in duration-300 hover:text-red-500"
+              ? "md:text-[16px] text-[12px] p-1  md:font-bold"
+              : "md:text-[16px] text-[12px] p-1 md:font-bold text-orange-500"
           }
           to="/"
         >
@@ -28,25 +28,25 @@ const Nav = () => {
         </NavLink>
       </li>
 
-      <li className="hover:-translate-y-2 hover:ease-in duration-300 ">
+      <li className="">
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? "md:text-[16px] text-[12px] p-1 text-red-500 md:font-bold"
-              : "md:text-[16px] text-[12px] p-1 md:font-bold  hover:ease-in duration-300 hover:text-red-500"
+              ? "md:text-[16px] text-[12px] p-1  md:font-bold"
+              : "md:text-[16px] text-[12px] p-1 md:font-bold text-orange-500"
           }
-          to="/allCraft"
+          to="/allFood"
         >
           All Food
         </NavLink>
       </li>
 
-      <li className="hover:-translate-y-2 hover:ease-in duration-300 ">
+      <li className="">
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? "md:text-[16px] text-[12px] p-1 text-red-500 md:font-bold"
-              : "md:text-[16px] text-[12px] p-1 md:font-bold  hover:ease-in duration-300 hover:text-red-500"
+              ? "md:text-[16px] text-[12px] p-1  md:font-bold"
+              : "md:text-[16px] text-[12px] p-1 md:font-bold text-orange-500"
           }
           to="/addItem"
         >
@@ -60,10 +60,10 @@ const Nav = () => {
     <div className="flex items-center p-3 md:px-5 sticky top-0 z-10 bg-gray-900 text-white">
       <div className="navbar-start items-center lg:justify-start justify-between flex w-full md:w-[50%]">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="lg:hidden">
+          <div tabIndex={0} role="button" className="lg:hidden  rounded-full p-[3px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -78,7 +78,7 @@ const Nav = () => {
           </div>
           <ul
             tabIndex={0}
-            className="backdrop-blur-md bg-[#1f1f1fd1] dropdown-content md:mt-6 mt-[16px] p-1 px-2 space-y-2 w-[100vw] ml-[-15px] gap-2 nav font-bold md:ml-[-20px]"
+            className="bg-gray-800 dropdown-content md:mt-6 mt-[16px] p-1 px-2 space-y-2 w-[100vw] ml-[-15px] gap-2 nav font-bold md:ml-[-20px]"
           >
             {links}
           </ul>
@@ -86,43 +86,35 @@ const Nav = () => {
 
         <Link
           to={"/"}
-          className="text-4xl text-white font-bold">
-          <p>Lo<span className="text-red-600">go</span></p>
+          className="text-lg md:text-3xl text-white font-bold">
+          <p>Lo<span className="text-orange-600">go</span></p>
         </Link>
 
         {user ? (
           <div className="md:hidden dropdown dropdown-end flex items-center gap-2">
 
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full border-2 border-gray-600">
-                {user?.photoURL ? (
-                  <img
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                    alt=""
-                    src={user.photoURL}
-                  />
-                ) : (
-                  <img
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                    alt=""
-                    src=''
-                  />
-                )}
+            <div className="dropdown dropdown-end  rounded-full relative">
+              <div tabIndex={0} role="button" className="btn btn-ghost gap-0 p-1">
+                <p className="text-xs absolute right-9 w-20">{user ? user.displayName : ''}</p>
+                <div className="w-8 rounded-full">
+                  <img className="w-full rounded-full"
+                    alt="no photo"
+                    src={user.photoURL} />
+                </div>
               </div>
-            </div>
+              <ul
+                tabIndex={0}
+                className="bg-gray-900 menu menu-sm dropdown-content rounded-b-md z-[1] mt-3 w-40 p-2 shadow flex flex-col gap-2">
 
-            <ul className="flex flex-col items-center text-center">
-              <li className="absolute top-[42px] right-[15px] w-full text-[10px] font-semibold">
-                {isHovering ? user.displayName : null}
-              </li>
-              <li>
-                <button onClick={handleLogout}>
-                  <PiSignOutFill color="#ff6b6b" size={20}></PiSignOutFill>
-                </button>
-              </li>
-            </ul>
+
+                <Link to='/myFood'><li className="p-1 bg-white text-black rounded-md text-sm font-bold">My Add Food</li>
+                </Link>
+                <Link to='/addFood'><li className="p-1 bg-white text-black rounded-md text-sm font-bold">Add a food</li>
+                </Link>
+                <Link to='/myOrderFood'><li className="p-2 bg-white text-black rounded-md text-sm font-bold">My Ordered Food</li>
+                </Link>
+              </ul>
+            </div>
 
           </div>
         ) : (
@@ -162,16 +154,17 @@ const Nav = () => {
 
         {user ? (
           <div className="dropdown dropdown-end flex items-center gap-2">
+
             <div className="dropdown dropdown-end  rounded-full">
-              <div tabIndex={0} role="button" className="btn btn-ghost gap-0 p-1 justify-center items-center">
-                <div className="flex justify-center items-center">
-                  <p className="p-1 rounded-l-full text-sm font-bold text-blac">
+              <div tabIndex={0} role="button" className="btn gap-0 bg-gray-700 hover:bg-gray-900 border-none rounded-full p-0 justify-center items-center">
+                <div className="flex justify-center items-center ">
+                  <p className="p-1 rounded-l-full text-xs font-bold text-white">
                     {user ? user.displayName : ''}
                   </p>
                 </div>
                 <div className="w-10 rounded-full">
                   <img className="w-full rounded-full"
-                    alt="Tailwind CSS Navbar component"
+                    alt="no photo"
                     src={user.photoURL} />
                 </div>
               </div>
@@ -179,11 +172,13 @@ const Nav = () => {
                 tabIndex={0}
                 className="bg-gray-900 menu menu-sm dropdown-content rounded-b-md z-[1] mt-3 w-52 p-2 shadow flex flex-col gap-2">
 
-                <li className="p-1 bg-white text-black rounded-md text-sm font-bold">
-                  <a>My added food</a>
-                </li>
-                <li className="p-1 bg-white text-black rounded-md text-sm font-bold"><a>Add a food</a></li>
-                <li className="p-1 bg-white text-black rounded-md text-sm font-bold"><a>My ordered food</a></li>
+                <Link to='/myFood'><li className="p-2 bg-white text-black rounded-md text-sm font-bold">My Add Food</li>
+                </Link>
+                <Link to='/addFood'><li className="p-2 bg-white text-black rounded-md text-sm font-bold">Add a food</li>
+                </Link>
+                <Link to='/myOrderFood'><li className="p-2 bg-white text-black rounded-md text-sm font-bold">My Ordered Food</li>
+                </Link>
+                
               </ul>
             </div>
 
