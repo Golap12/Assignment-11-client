@@ -19,8 +19,8 @@ const AllFood = () => {
     return (
         <div className="container mx-auto p-6 bg-gray-900 text-white">
             <div className="text-center mb-8">
-                <h2 className="md:text-4xl text-2xl  font-bold">All Foods</h2>
-                <p className="text-gray-400 mt-2 max-w-xl mx-auto">
+                <h2 className="md:text-2xl text-2xl  font-bold">All Foods</h2>
+                <p className="text-gray-400 text-sm mt-2 max-w-xl mx-auto">
                     Discover a variety of delicious meals, crafted with love and fresh ingredients. Enjoy the flavors from around the world!
                 </p>
             </div>

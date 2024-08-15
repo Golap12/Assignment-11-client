@@ -1,7 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import { useContext, useState } from 'react';
 import { FiUser } from "react-icons/fi";
-import { PiSignOutFill } from "react-icons/pi";
+import { TbLogout } from "react-icons/tb";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { AuthContext } from './../provider/AuthProvider';
 
@@ -37,7 +38,7 @@ const Nav = () => {
           }
           to="/allFood"
         >
-          All Food
+          Foods
         </NavLink>
       </li>
 
@@ -91,11 +92,11 @@ const Nav = () => {
         </Link>
 
         {user ? (
-          <div className="md:hidden dropdown dropdown-end flex items-center gap-2">
+          <div className="md:hidden dropdown dropdown-end flex items-center">
 
             <div className="dropdown dropdown-end  rounded-full relative">
               <div tabIndex={0} role="button" className="btn btn-ghost gap-0 p-1">
-                <p className="text-xs absolute right-9 w-20">{user ? user.displayName : ''}</p>
+                <p className="text-xs absolute right-9 w-20 ">{user ? user.displayName : ''}</p>
                 <div className="w-8 rounded-full">
                   <img className="w-full rounded-full"
                     alt="no photo"
@@ -105,8 +106,6 @@ const Nav = () => {
               <ul
                 tabIndex={0}
                 className="bg-gray-900 menu menu-sm dropdown-content rounded-b-md z-[1] mt-3 w-40 p-2 shadow flex flex-col gap-2">
-
-
                 <Link to='/myFood'><li className="p-1 bg-white text-black rounded-md text-sm font-bold">My Add Food</li>
                 </Link>
                 <Link to='/addFood'><li className="p-1 bg-white text-black rounded-md text-sm font-bold">Add a food</li>
@@ -116,12 +115,14 @@ const Nav = () => {
               </ul>
             </div>
 
+            <p onClick={handleLogout}><TbLogout></TbLogout></p>
+
           </div>
         ) : (
           <div className="md:hidden dropdown dropdown-bottom dropdown-end">
             <div tabIndex={0} role="button" className="flex justify-center items-center gap-1">
               <span>
-                <BiSolidUserPlus size={30}></BiSolidUserPlus>
+                <BiSolidUserPlus size={25}></BiSolidUserPlus>
               </span>
             </div>
             <ul tabIndex={0} className="bg-[#ffffff74] dropdown-content z-[1] menu shadow mt-[17px] mr-[-12px] w-52">
@@ -182,13 +183,11 @@ const Nav = () => {
               </ul>
             </div>
 
-            <ul className="px-2 py-1 flex flex-col items-center hover:text-red-600 hover:transition-all duration-300 text-center font-bold bg-white text-black rounded-full">
-              <li className="absolute text-gray-400 top-[45px] right-[30px] w-[150px]">
-                {isHovering ? user.displayName : null}
-              </li>
+            <ul className="px-2 py-1 flex flex-col items-center hover:text-red-600 hover:transition-all duration-300 text-center font-bold  rounded-full">
+              
               <li>
-                <button className="" onClick={handleLogout}>
-                  Log Out
+                <button onClick={handleLogout}>
+                <RiLogoutCircleRLine size={25} />
                 </button>
               </li>
             </ul>

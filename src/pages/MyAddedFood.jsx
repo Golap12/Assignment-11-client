@@ -37,7 +37,7 @@ const MyAddedFood = () => {
 
 
     const handleUpdate = async (e) => {
-        
+
         e.preventDefault();
         const form = e.target;
 
@@ -50,7 +50,7 @@ const MyAddedFood = () => {
         const foodOrigin = form.foodOrigin.value;
         const description = form.description.value;
 
-        
+
         const updateFood = {
             foodName,
             foodImage,
@@ -63,20 +63,17 @@ const MyAddedFood = () => {
         };
 
 
-        try{
-            const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/food/user/${editFood._id}`, updateFood)
+        try {
+            const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/food/user/${editFood._id}`, updateFood)
             toast.success("Update Success")
             getAllFoodData();
 
         }
-        catch (error){
+        catch (error) {
             console.log(error);
         }
-            
+
     };
-
-
-
 
 
     const handleEditClick = (food) => {
@@ -89,8 +86,11 @@ const MyAddedFood = () => {
     const Modal = ({ food }) => {
         return (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
-                <div className="bg-gray-800 rounded-lg p-8 shadow-lg">
-                    <h1 className="text-2xl font-bold mb-4 text-white">Update Food Item</h1>
+                <div className="bg-gray-800 rounded-lg p-8 shadow-lg max-w-xl w-full">
+                    <h1 className="text-2xl font-bold mb-2 text-white text-center">Update Food Item</h1>
+                    <p className="text-sm text-gray-300 mb-6 text-center">
+                        Update the details of your food item below. Make sure all fields are filled in correctly before submitting.
+                    </p>
                     <form onSubmit={handleUpdate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Form Fields */}
                         <div className="mb-4">
@@ -188,7 +188,6 @@ const MyAddedFood = () => {
                                         setModal(false);
                                     }, 100);
                                 }}
-
                                 type="submit"
                                 className="ml-4 bg-green-500 text-white font-bold rounded px-4 py-2 hover:bg-green-400"
                             >
@@ -198,11 +197,17 @@ const MyAddedFood = () => {
                     </form>
                 </div>
             </div>
+
         );
     };
 
     return (
         <div className={`${modal && "h-[120vh]"} overflow-x-auto p-10 bg-gray-900 backdrop-blur-lg text-gray-300 relative`}>
+
+            <h2 className="text-2xl font-bold text-white mb-4 text-center">Your Ordered Food List</h2>
+            <p className="text-gray-400 mb-6 text-center">
+                Here you can view, edit, or delete the food items you have ordered. Manage your orders efficiently!
+            </p>
             {modal && <Modal />}
             {myData && myData.length > 0 ? (
                 <table className="min-w-full divide-y divide-gray-700">

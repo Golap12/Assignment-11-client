@@ -1,13 +1,61 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { FaUtensils, FaTag, FaUser, FaGlobe, FaInfoCircle } from 'react-icons/fa';
+import { AuthContext } from '../provider/AuthProvider';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const FoodDetails = () => {
+    const {user}= useContext(AuthContext)
     const food = useLoaderData();
 
-    const { foodImage, foodName, foodCategory, price, quantity, madeBy,
-        foodOrigin, description,
-        purchase_count } = food
+    const {
+        foodImage,
+        foodName,
+        foodCategory,
+        price,
+        quantity,
+        madeBy,
+        foodOrigin,
+        description,
+        purchase_count
+    } = food
+
+
+    const handlePurchase = async (food) => {
+
+        const purchaseFood = {
+            foodName,
+            foodImage,
+            foodCategory,
+            quantity,
+            madeBy,
+            price,
+            purchaseBy: user?.email,
+            foodOrigin,
+            description,
+            purchase_count,
+            purchaseDate: Date.now(),
+            
+        };
+
+        if (quantity <= 0) {
+            toast.error("Quantity is insufficient for purchase");
+            return;
+        }
+        
+        try{
+            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/purchase-foods`, purchaseFood)
+            toast.success("Purchase Success")
+            // navigate("/myFood")
+
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+
+
 
     return (
         <div className="bg-gray-100 dark:bg-gray-800 py-8">
@@ -24,7 +72,10 @@ const FoodDetails = () => {
                     <div className='border'></div>
 
                     <div className="md:flex-1 px-4 flex flex-col justify-center">
-                        <h2 className="text-2xl md:text-4xl mb-5 font-bold text-gray-800 dark:text-white">{foodName}</h2>
+                        <div className='flex justify-between'>
+                            <h2 className="text-2xl md:text-4xl mb-5 font-bold text-gray-800 dark:text-white">{foodName}</h2>
+                            <p className="font-bold text-gray-700 dark:text-gray-300">Quantity: {quantity}</p>
+                        </div>
                         <div className="flex mb-4">
                             <span className="font-bold text-gray-700 dark:text-gray-300">Category : </span>
                             <span className="text-gray-600 dark:text-gray-300">{foodCategory}</span>
@@ -54,9 +105,7 @@ const FoodDetails = () => {
                         <div>
                             <div className="mt-4">
                                 <div className="">
-                                    <Link>
-                                        <button className=" bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Purchase</button>
-                                    </Link>
+                                    <button onClick={handlePurchase} className=" bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Purchase</button>
                                 </div>
                             </div>
                         </div>
