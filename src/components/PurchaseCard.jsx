@@ -1,8 +1,15 @@
 import axios from 'axios';
+import { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { IoTrashBinSharp } from "react-icons/io5";
+import { AuthContext } from '../provider/AuthProvider';
 
 const PurchaseCard = ({ pFood, getAllPurchaseData }) => {
+    
+    const {user} = useContext(AuthContext)
+    console.log(user);
+    
+    
     const {
         _id,
         foodImage,
@@ -31,8 +38,10 @@ const PurchaseCard = ({ pFood, getAllPurchaseData }) => {
                 <h3 className="text-lg font-bold text-white mb-2 truncate">{foodName}</h3>
                 <div className="flex items-center text-gray-400 text-sm mb-2">
                     <img src={foodImage} alt="Author" className="rounded-full h-8 w-8 mr-2 object-cover" />
-                    <span className="font-bold tracking-wide text-pink-400">{madeBy.toUpperCase().split('').slice(0, 13).join('')}</span>
+                    {/* <span className='text-sm font-medium text-white'>{user.displayName}</span> */}
+                    <span className="font-medium text-xs tracking-wide text-gray-400">Food Owner {madeBy}</span>
                 </div>
+                
                 <p className="text-xs text-gray-400 mt-2">
                     Purchase Time: <span className="text-white">{new Date(purchaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </p>
