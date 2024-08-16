@@ -5,12 +5,12 @@ import Footer from '../components/Footer';
 
 const Root = () => {
     return (
-        <div>
+        <div className='bg-gray-900 font-pop'>
             {/* navbar  */}
             <Navbar />
 
             {/* outlet  */}
-            <div className='min-h-[calc(100vh-345.6px)] bg-gray-900'>
+            <div className=' min-h-[calc(100vh-345.6px)]'>
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>

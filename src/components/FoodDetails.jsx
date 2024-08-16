@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
-import { FaUtensils, FaTag, FaUser, FaGlobe, FaInfoCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import {useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const FoodDetails = () => {
-    const {user}= useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const food = useLoaderData();
+    const navigate = useNavigate()
 
     const {
         foodImage,
@@ -36,21 +37,21 @@ const FoodDetails = () => {
             description,
             purchase_count,
             purchaseDate: Date.now(),
-            
+
         };
 
         if (quantity <= 0) {
             toast.error("Quantity is insufficient for purchase");
             return;
         }
-        
-        try{
-            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/purchase-foods`, purchaseFood)
+
+        try {
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/purchase-foods`, purchaseFood)
             toast.success("Purchase Success")
-            // navigate("/myFood")
+            navigate('/myOrderFood')
 
         }
-        catch (error){
+        catch (error) {
             console.log(error);
         }
     }
@@ -88,10 +89,6 @@ const FoodDetails = () => {
                                 <span className="font-bold text-gray-700 dark:text-gray-300">Price: </span>
                                 <span className="text-gray-600 dark:text-gray-300">${price}</span>
                             </div>
-                            <div>
-                                <span className="font-bold text-gray-700 dark:text-gray-300">Purchase Count: </span>
-                                <span className="text-gray-600 dark:text-gray-300">{purchase_count}</span>
-                            </div>
                             <div className="mr-4">
                                 <span className="font-bold text-gray-700 dark:text-gray-300">Made By: </span>
                                 <span className="text-gray-600 dark:text-gray-300">{madeBy}</span>
@@ -105,7 +102,13 @@ const FoodDetails = () => {
                         <div>
                             <div className="mt-4">
                                 <div className="">
-                                    <button onClick={handlePurchase} className=" bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Purchase</button>
+                                    <button
+                                        onClick={handlePurchase}
+                                        className={`py-2 px-4 rounded-sm font-bold ${quantity === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-orange-600 hover:bg-orange-700 duration-300'} text-white`}
+                                        disabled={quantity === 0}
+                                    >
+                                        Purchase
+                                    </button>
                                 </div>
                             </div>
                         </div>

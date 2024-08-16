@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { useContext, useState } from 'react';
 import { FiUser } from "react-icons/fi";
-import { TbLogout } from "react-icons/tb";
+import { MdOutlineLogout } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { AuthContext } from './../provider/AuthProvider';
@@ -49,7 +49,7 @@ const Nav = () => {
               ? "md:text-[16px] text-[12px] p-1  md:font-bold"
               : "md:text-[16px] text-[12px] p-1 md:font-bold text-orange-500"
           }
-          to="/addItem"
+          to="/gallery"
         >
           Gallery
         </NavLink>
@@ -79,7 +79,7 @@ const Nav = () => {
           </div>
           <ul
             tabIndex={0}
-            className="bg-gray-800 dropdown-content md:mt-6 mt-[16px] p-1 px-2 space-y-2 w-[100vw] ml-[-15px] gap-2 nav font-bold md:ml-[-20px]"
+            className="bg-gray-900 rounded-b-lg p-2 *:bg-white *:text-black *:p-1 *:rounded-md dropdown-content md:mt-6 mt-[16px] px-2 space-y-2 w-40 ml-[-15px] gap-2 nav font-bold md:ml-[-20px]"
           >
             {links}
           </ul>
@@ -87,8 +87,8 @@ const Nav = () => {
 
         <Link
           to={"/"}
-          className="text-lg md:text-3xl text-white font-bold">
-          <p>Lo<span className="text-orange-600">go</span></p>
+          className="text-2xl md:text-3xl lg:text-4xl text-white font-bold">
+          <p>Food<span className="text-orange-600">ie's</span></p>
         </Link>
 
         {user ? (
@@ -96,7 +96,7 @@ const Nav = () => {
 
             <div className="dropdown dropdown-end  rounded-full relative">
               <div tabIndex={0} role="button" className="btn btn-ghost gap-0 p-1">
-                <p className="text-xs absolute right-9 w-20 ">{user ? user.displayName : ''}</p>
+                {/* <p className="text-xs absolute right-9 w-20 ">{user ? user.displayName : ''}</p> */}
                 <div className="w-8 rounded-full">
                   <img className="w-full rounded-full"
                     alt="no photo"
@@ -105,17 +105,22 @@ const Nav = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="bg-gray-900 menu menu-sm dropdown-content rounded-b-md z-[1] mt-3 w-40 p-2 shadow flex flex-col gap-2">
-                <Link to='/myFood'><li className="p-1 bg-white text-black rounded-md text-sm font-bold">My Add Food</li>
+                className="bg-gray-900 menu menu-sm dropdown-content rounded-b-md z-[1] mt-3 w-32 p-2 shadow flex flex-col gap-2">
+                <Link to='/myFood'><li className="p-1 bg-white text-black rounded-md text-xs font-bold">My Food</li>
                 </Link>
-                <Link to='/addFood'><li className="p-1 bg-white text-black rounded-md text-sm font-bold">Add a food</li>
+                <Link to='/addFood'><li className="p-1 bg-white text-black rounded-md text-xs font-bold">Add food</li>
                 </Link>
-                <Link to='/myOrderFood'><li className="p-2 bg-white text-black rounded-md text-sm font-bold">My Ordered Food</li>
+                <Link to='/myOrderFood'><li className="p-1 bg-white text-black rounded-md text-xs font-bold"> Ordered Food</li>
                 </Link>
+                <div className="flex gap-2 items-center p-1 bg-white text-black rounded-md text-xs font-bold">
+                <li onClick={handleLogout} className=""> Logout</li> 
+                  <MdOutlineLogout color="red"></MdOutlineLogout>
+                   
+                </div>
+
               </ul>
             </div>
 
-            <p onClick={handleLogout}><TbLogout></TbLogout></p>
 
           </div>
         ) : (
@@ -125,14 +130,14 @@ const Nav = () => {
                 <BiSolidUserPlus size={25}></BiSolidUserPlus>
               </span>
             </div>
-            <ul tabIndex={0} className="bg-[#ffffff74] dropdown-content z-[1] menu shadow mt-[17px] mr-[-12px] w-52">
-              <Link to={"/login"} className="md:hidden font-semibold flex items-center gap-2 mb-3">
+            <ul tabIndex={0} className="bg-gray-900 dropdown-content rounded-b-lg z-[1] menu shadow mt-[15px] mr-[-12px] w-32">
+              <Link to={"/login"} className="md:hidden bg-gray-200 rounded-full p-1 font-semibold text-sm text-black flex items-center gap-2 mb-3">
                 <span>
                   <FiUser size={15} color="#ff6b6b"></FiUser>
                 </span>
                 <span>Login</span>
               </Link>
-              <Link to={"/register"} className="md:hidden font-semibold flex items-center gap-2">
+              <Link to={"/register"} className="md:hidden bg-gray-200 rounded-full p-1 font-semibold text-sm text-black flex items-center gap-2 mb-3">
                 <span>
                   <FiUser size={15} color="#ff6b6b"></FiUser>
                 </span>
@@ -173,21 +178,21 @@ const Nav = () => {
                 tabIndex={0}
                 className="bg-gray-900 menu menu-sm dropdown-content rounded-b-md z-[1] mt-3 w-52 p-2 shadow flex flex-col gap-2">
 
-                <Link to='/myFood'><li className="p-2 bg-white text-black rounded-md text-sm font-bold">My Add Food</li>
+                <Link to='/myFood'><li className="p-2 bg-white text-black rounded-full text-sm font-bold">My Add Food</li>
                 </Link>
-                <Link to='/addFood'><li className="p-2 bg-white text-black rounded-md text-sm font-bold">Add a food</li>
+                <Link to='/addFood'><li className="p-2 bg-white text-black rounded-full text-sm font-bold">Add a food</li>
                 </Link>
-                <Link to='/myOrderFood'><li className="p-2 bg-white text-black rounded-md text-sm font-bold">My Ordered Food</li>
+                <Link to='/myOrderFood'><li className="p-2 bg-white text-black rounded-full text-sm font-bold">My Ordered Food</li>
                 </Link>
-                
+
               </ul>
             </div>
 
             <ul className="px-2 py-1 flex flex-col items-center hover:text-red-600 hover:transition-all duration-300 text-center font-bold  rounded-full">
-              
+
               <li>
                 <button onClick={handleLogout}>
-                <RiLogoutCircleRLine size={25} />
+                  <RiLogoutCircleRLine size={25} />
                 </button>
               </li>
             </ul>
@@ -197,7 +202,7 @@ const Nav = () => {
             <div
               tabIndex={0}
               role="button"
-              className="px-2 py-1 rounded-md text-xl font-bold flex justify-center items-center text-black bg-white hover:ease-in duration-300"
+              className="px-2 py-1 rounded-full hover:bg-gray-800 hover:border border hover:text-white text-xl font-bold flex justify-center items-center text-black bg-white duration-200"
             >
               <span>
                 <BiSolidUserPlus size={20}></BiSolidUserPlus>

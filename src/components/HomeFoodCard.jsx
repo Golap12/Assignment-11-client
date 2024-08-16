@@ -4,19 +4,20 @@ import { Link } from 'react-router-dom';
 
 const HomeFoodCard = ({ food }) => {
     return (
-        <div className="w-full rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 duration-300 bg-gray-800">
+        <div className="relative w-full shadow-[0px_5px_5px_4px_#2d3748] rounded-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
             <img className="w-full h-36 object-cover" src={food.foodImage} alt={food.foodName} />
-            <div className="p-4 bg-gray-800">
-                <h2 className="text-xl font-bold text-white mb-1">{food.foodName}</h2>
-                <p className="text-gray-300 mb-1">
-                    <span className="font-semibold">Category:</span> {food.foodCategory}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-orange-500 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="p-4 bg-gray-900 relative z-10">
+                <h2 className="text-xl font-bold text-white mb-2">{food.foodName}</h2>
+                <p className="text-gray-400 mb-2 text-sm">
+                    <span className="font-semibold text-sm text-yellow-500">Category:</span> {food.foodCategory}
                 </p>
-                <p className="text-gray-300 mb-2">
-                    <span className="font-bold text-orange-500">Price:</span> ${food.price}
+                <p className="text-gray-400 mb-4 text-sm">
+                    <span className="font-bold text-blue-400">Price:</span> ${food.price}
                 </p>
                 <Link to={`/details/${food._id}`}>
-                    <button className="flex items-center mt-2 bg-orange-500 text-white font-bold py-1 px-3 rounded transition-colors hover:bg-orange-600 text-sm">
-                        <FaInfoCircle className="mr-1" />
+                    <button className="flex items-center mt-2 bg-orange-700 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-600 text-sm">
+                        <FaInfoCircle className="mr-2" />
                         Details
                     </button>
                 </Link>

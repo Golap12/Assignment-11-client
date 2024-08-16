@@ -2,14 +2,14 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-8 border-t">
+    <footer className="bg-gray-900 text-white py-8 border-t mt-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Section */}
           <div>
             <h3 className="text-lg font-semibold mb-4">About Us</h3>
             <p className="text-sm">
-              Welcome to [Restaurant Name], where we serve the best dishes made
+              Welcome to Foodie's, where we serve the best dishes made
               from fresh, local ingredients. Enjoy a cozy atmosphere and
               exceptional service.
             </p>
@@ -65,7 +65,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-4 text-center text-sm">
-          &copy; 2024 [Restaurant Name]. All rights reserved.
+          &copy; 2024 Foodie's. All rights reserved.
         </div>
       </div>
     </footer>

@@ -4,6 +4,7 @@ import { AuthContext } from './../provider/AuthProvider';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { Navigate } from 'react-router-dom';
+import NoDataAnimation from '../components/NoDataAnimation';
 
 const MyAddedFood = () => {
     const [myData, setMyData] = useState([]);
@@ -83,10 +84,10 @@ const MyAddedFood = () => {
 
     };
 
-    const Modal = ({ food }) => {
+    const Modal = () => {
         return (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
-                <div className="bg-gray-800 rounded-lg p-8 shadow-lg max-w-xl w-full">
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
+                <div className="bg-gray-800 rounded-lg md:p-10 p-5 shadow-lg max-w-xl w-full">
                     <h1 className="text-2xl font-bold mb-2 text-white text-center">Update Food Item</h1>
                     <p className="text-sm text-gray-300 mb-6 text-center">
                         Update the details of your food item below. Make sure all fields are filled in correctly before submitting.
@@ -202,47 +203,55 @@ const MyAddedFood = () => {
     };
 
     return (
-        <div className={`${modal && "h-[120vh]"} overflow-x-auto p-10 bg-gray-900 backdrop-blur-lg text-gray-300 relative`}>
+        <div className={`${modal && "h-[120vh] "} overflow-x-auto md:p-10 p-5 bg-gray-900 backdrop-blur-lg text-gray-300 relative`}>
+            <div className="overflow-hidden">
+                <h2 className="text-2xl font-bold text-white mb-4 text-center">Your Added Food List</h2>
+                <p className="text-gray-400 mb-6 text-center">
+                    Here you can view, edit, or delete the food items you have ordered. Manage your orders efficiently!
+                </p>
+            </div>
 
-            <h2 className="text-2xl font-bold text-white mb-4 text-center">Your Ordered Food List</h2>
-            <p className="text-gray-400 mb-6 text-center">
-                Here you can view, edit, or delete the food items you have ordered. Manage your orders efficiently!
-            </p>
             {modal && <Modal />}
+
             {myData && myData.length > 0 ? (
-                <table className="min-w-full divide-y divide-gray-700">
-                    <thead className='bg-gray-700'>
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Image</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody className="bg-gray-800 divide-y divide-gray-700">
-                        {myData.map((food) => (
-                            <tr key={food._id}>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <img src={food.foodImage} alt={food.foodName} className="h-12 w-12 rounded-md" />
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">{food.foodName}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{food.foodCategory}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">${food.price}</td>
-                                <td className="px-6 py-4 whitespace-nowrap flex items-center">
-                                    <button onClick={() => handleEditClick(food)} className="text-blue-500 hover:text-blue-300">
-                                        <FaEdit size={20} />
-                                    </button>
-                                    <button onClick={() => handleDelete(food._id)} className="ml-4 text-red-500 hover:text-red-300">
-                                        <FaTrash size={20} />
-                                    </button>
-                                </td>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-700">
+                        <thead className='bg-gray-700'>
+                            <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Image</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="bg-gray-800 divide-y divide-gray-700">
+                            {myData.map((food) => (
+                                <tr key={food._id}>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <img src={food.foodImage} alt={food.foodName} className="h-12 w-12 rounded-md" />
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{food.foodName}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{food.foodCategory}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">${food.price}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap flex items-center">
+                                        <button onClick={() => handleEditClick(food)} className="text-blue-500 hover:text-blue-300">
+                                            <FaEdit size={20} />
+                                        </button>
+                                        <button onClick={() => handleDelete(food._id)} className="ml-4 text-red-500 hover:text-red-300">
+                                            <FaTrash size={20} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
-                <p className="text-center py-4">No food items found.</p>
+                <div className="flex flex-col items-center justify-center col-span-3">
+                    <NoDataAnimation />
+                </div>
+               
             )}
         </div>
     );

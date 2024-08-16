@@ -2,11 +2,10 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from './../provider/AuthProvider';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 const AddFood = () => {
     const { user } = useContext(AuthContext);
-    const location = useLocation()
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
@@ -18,7 +17,7 @@ const AddFood = () => {
         const foodCategory = form.foodCategory.value;
         const quantity = form.quantity.value;
         const price = parseFloat(form.price.value);
-        const addedBy = user?.email;
+        const madeBy = user?.email;
         const foodOrigin = form.foodOrigin.value;
         const description = form.description.value;
 
@@ -29,7 +28,7 @@ const AddFood = () => {
             foodCategory,
             quantity,
             price,
-            addedBy,
+            madeBy,
             foodOrigin,
             description,
         };
@@ -47,8 +46,8 @@ const AddFood = () => {
     };
 
     return (
-        <div className="container mx-auto px-6 py-16">
-            <h1 className="text-4xl font-bold mb-8 text-center text-white">Add Food Item</h1>
+        <div className="container mx-auto px-6 py-5">
+            <h1 className="md:text-4xl text-2xl font-bold mb-8 text-center text-white">Add Food Item</h1>
             <form onSubmit={handleSubmit} className="bg-gray-800 shadow-md rounded-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="mb-4">
                     <label className="block text-gray-300">Food Name</label>
@@ -119,14 +118,14 @@ const AddFood = () => {
                     <label className="block text-gray-300">Description</label>
                     <textarea
                         name="description"
-                        className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
+                        className="resize-none w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
                         rows="4"
                         required
                     />
                 </div>
                 <button
                     type="submit"
-                    className="w-full py-2 bg-pink-500 text-white font-bold rounded hover:bg-pink-400 col-span-1 md:col-span-2"
+                    className="w-full py-2 bg-blue-500 text-white font-bold rounded hover:bg-pink-400 col-span-1 md:col-span-2"
                 >
                     Add Item
                 </button>

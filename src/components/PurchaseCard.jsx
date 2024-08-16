@@ -1,7 +1,9 @@
-import React from 'react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
-const PurchaseCard = ({ pFood }) => {
+const PurchaseCard = ({ pFood, getAllPurchaseData }) => {
     const {
+        _id,
         foodImage,
         foodName,
         foodCategory,
@@ -15,7 +17,7 @@ const PurchaseCard = ({ pFood }) => {
         try {
             await axios.delete(`${import.meta.env.VITE_API_URL}/purchase/${id}`);
             toast.success("Deleted Successfully");
-            getAllFoodData();
+            getAllPurchaseData();
         } catch (err) {
             console.log(err.message);
             toast.error(err.message);
@@ -36,7 +38,7 @@ const PurchaseCard = ({ pFood }) => {
                 <p className="text-xs text-gray-400 mt-2">
                     Price: <span className="text-white">${price}</span>
                 </p>
-                <button onClick={handleDelete} className=" w-1/3 mt-4 bg-red-600 hover:bg-red-500 text-white font-bold py-1 rounded transition duration-300">
+                <button onClick={() => handleDelete(_id)} className=" w-1/3 mt-4 bg-red-600 hover:bg-red-500 text-white font-bold py-1 rounded transition duration-300">
                     Delete
                 </button>
             </div>
