@@ -1,5 +1,6 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { IoTrashBinSharp } from "react-icons/io5";
 
 const PurchaseCard = ({ pFood, getAllPurchaseData }) => {
     const {
@@ -30,7 +31,7 @@ const PurchaseCard = ({ pFood, getAllPurchaseData }) => {
                 <h3 className="text-lg font-bold text-white mb-2 truncate">{foodName}</h3>
                 <div className="flex items-center text-gray-400 text-sm mb-2">
                     <img src={foodImage} alt="Author" className="rounded-full h-8 w-8 mr-2 object-cover" />
-                    <span className="font-bold tracking-wide text-pink-400">{madeBy}</span>
+                    <span className="font-bold tracking-wide text-pink-400">{madeBy.toUpperCase().split('').slice(0, 13).join('')}</span>
                 </div>
                 <p className="text-xs text-gray-400 mt-2">
                     Purchase Time: <span className="text-white">{new Date(purchaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
@@ -38,8 +39,9 @@ const PurchaseCard = ({ pFood, getAllPurchaseData }) => {
                 <p className="text-xs text-gray-400 mt-2">
                     Price: <span className="text-white">${price}</span>
                 </p>
-                <button onClick={() => handleDelete(_id)} className=" w-1/3 mt-4 bg-red-600 hover:bg-red-500 text-white font-bold py-1 rounded transition duration-300">
-                    Delete
+                <button onClick={() => handleDelete(_id)} className="w-[40%]  mt-4 flex gap-2 items-center justify-center bg-red-600 hover:bg-red-500 text-white font-bold p-1 rounded transition duration-300">
+                <span><IoTrashBinSharp size={15} /></span>
+                <span>Delete</span>
                 </button>
             </div>
             <div className="w-1/3">

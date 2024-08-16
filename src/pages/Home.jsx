@@ -4,12 +4,19 @@ import HomeFoodCard from '../components/HomeFoodCard';
 import Hero from '../components/Hero';
 import ContactPage from '../components/ContactPage';
 import Testimonial from '../components/Testimonial';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
     const data = useLoaderData();
 
     return (
         <div className=" min-h-screen text-white">
+
+
+            <Helmet>
+                <title>Foodie's | Home Page</title>
+            </Helmet>
+
             <div>
                 <Hero />
             </div>
@@ -44,7 +51,7 @@ const Home = () => {
                 <ContactPage></ContactPage>
             </div>
 
-            
+
         </div>
     );
 };

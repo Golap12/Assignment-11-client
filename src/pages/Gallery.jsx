@@ -3,13 +3,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Navigate, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 
 const Gallery = () => {
     const feedbackData = useLoaderData();
     const [feedback, setFeedback] = useState([]);
     const [modal, setModal] = useState(false);
     const [editFeedback, setEditFeedback] = useState({});
-    const {user}= useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         const getUserFeedback = async () => {
@@ -66,7 +67,7 @@ const Gallery = () => {
 
     const Modal = () => {
 
-        if(user){
+        if (user) {
             return (
                 <div className="fixed inset-0 z-20 flex items-center justify-center bg-black backdrop-blur-sm bg-opacity-70">
                     <div className="bg-gray-800 rounded-lg p-6 md:w-1/3">
@@ -113,14 +114,17 @@ const Gallery = () => {
                     </div>
                 </div>
             );
-        } else{
+        } else {
             return <Navigate to="/login" state={location.pathname}></Navigate>;
         }
-        
+
     };
 
     return (
         <div className='p-8 md:p-20'>
+            <Helmet>
+                <title>Foodie's | Gallery</title>
+            </Helmet>
             {modal && <Modal />}
             <h1 className="text-3xl font-bold text-white text-center mb-2">Gallery</h1>
             <p className="text-gray-400 text-center mb-10">Explore the feedback from our valued users below.</p>

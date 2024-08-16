@@ -55,9 +55,9 @@ const Login = () => {
 
   return (
     <div className="bg-gray-900 p-5 text-white">
-      {/* <Helmet>
-        <title>Restaurant Name | Login</title>
-      </Helmet> */}
+      <Helmet>
+        <title>Foodie's | Login</title>
+      </Helmet>
 
       <div className="flex md:flex-row-reverse flex-col sm:flex-col p-9 rounded-lg gap-5">
         <div className="flex-1">

@@ -4,6 +4,7 @@ import { FaInfoCircle } from 'react-icons/fa';
 import { GiWorld } from 'react-icons/gi';
 import { FaUserAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const AllFood = () => {
 
@@ -19,6 +20,9 @@ const AllFood = () => {
 
     return (
         <div className="container mx-auto p-6 bg-gray-900 text-white">
+            <Helmet>
+                <title>Foodie's | Foods</title>
+            </Helmet>
             <div className="text-center mb-8">
                 <h2 className="md:text-2xl text-2xl font-bold">All Foods</h2>
                 <p className="text-gray-400 text-sm mt-2 max-w-xl mx-auto">

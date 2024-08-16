@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from './../provider/AuthProvider';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const AddFood = () => {
     const { user } = useContext(AuthContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,13 +16,12 @@ const AddFood = () => {
         const foodName = form.foodName.value;
         const foodImage = form.foodImage.value;
         const foodCategory = form.foodCategory.value;
-        const quantity = form.quantity.value;
+        const quantity = parseFloat(form.quantity.value);
         const price = parseFloat(form.price.value);
         const madeBy = user?.email;
         const foodOrigin = form.foodOrigin.value;
         const description = form.description.value;
 
-        
         const addFood = {
             foodName,
             foodImage,
@@ -31,22 +31,23 @@ const AddFood = () => {
             madeBy,
             foodOrigin,
             description,
+            purchase_count: 0,
         };
 
-        try{
-            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/add-foods`, addFood)
-            toast.success("Added Success")
-            navigate("/myFood")
-
-        }
-        catch (error){
+        try {
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/add-foods`, addFood);
+            toast.success("Added Success");
+            navigate("/myFood");
+        } catch (error) {
             console.log(error);
         }
-
     };
 
     return (
         <div className="container mx-auto px-6 py-5">
+            <Helmet>
+                <title>Foodie's | Add Food</title>
+            </Helmet>
             <h1 className="md:text-4xl text-2xl font-bold mb-8 text-center text-white">Add Food Item</h1>
             <form onSubmit={handleSubmit} className="bg-gray-800 shadow-md rounded-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="mb-4">

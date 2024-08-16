@@ -5,6 +5,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { Navigate } from 'react-router-dom';
 import NoDataAnimation from '../components/NoDataAnimation';
+import { Helmet } from 'react-helmet-async';
 
 const MyAddedFood = () => {
     const [myData, setMyData] = useState([]);
@@ -204,6 +205,9 @@ const MyAddedFood = () => {
 
     return (
         <div className={`${modal && "h-[120vh] "} overflow-x-auto md:p-10 p-5 bg-gray-900 backdrop-blur-lg text-gray-300 relative`}>
+             <Helmet>
+                <title>Foodie's | My Added</title>
+            </Helmet>
             <div className="overflow-hidden">
                 <h2 className="text-2xl font-bold text-white mb-4 text-center">Your Added Food List</h2>
                 <p className="text-gray-400 mb-6 text-center">

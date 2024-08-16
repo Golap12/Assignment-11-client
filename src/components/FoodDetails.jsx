@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const FoodDetails = () => {
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
     const food = useLoaderData();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const {
         foodImage,
@@ -20,50 +20,60 @@ const FoodDetails = () => {
         foodOrigin,
         description,
         purchase_count
-    } = food
-
+    } = food;
 
     const handlePurchase = async (food) => {
-
-        const purchaseFood = {
-            foodName,
-            foodImage,
-            foodCategory,
-            quantity,
-            madeBy,
-            price,
-            purchaseBy: user?.email,
-            foodOrigin,
-            description,
-            purchase_count,
-            purchaseDate: Date.now(),
-
-        };
-
         if (quantity <= 0) {
             toast.error("Quantity is insufficient for purchase");
             return;
         }
 
-        try {
-            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/purchase-foods`, purchaseFood)
-            toast.success("Purchase Success")
-            navigate('/myOrderFood')
+        const purchaseFood = {
+            foodName,
+            foodImage,
+            foodCategory,
+            quantity: quantity - 1,
+            madeBy,
+            price,
+            purchaseBy: user?.email,
+            foodOrigin,
+            description,
+            purchase_count: purchase_count + 1,
+            purchaseDate: Date.now(),
+        };
 
+        try {
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/purchase-foods`, purchaseFood);
+            toast.success("Purchase Success");
+            navigate('/myOrderFood');
+        } catch (error) {
+            console.log(error);
+        }
+
+
+        handleUpdateQP(food);
+    };
+
+
+    const handleUpdateQP = async (food) => {
+        const updateQntAndPrc = {
+            quantity: quantity - 1,
+            purchase_count: purchase_count + 1,
+        };
+
+
+        try {
+            const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/food/user/${food._id}`, updateQntAndPrc)
         }
         catch (error) {
             console.log(error);
         }
     }
 
-
-
     return (
         <div className="bg-gray-100 dark:bg-gray-800 py-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row gap-5">
-
-
                     <div className="md:flex-1 px-4">
                         <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
                             <img className="w-full h-full object-cover" src={foodImage} alt="Product Image" />
@@ -90,6 +100,10 @@ const FoodDetails = () => {
                                 <span className="text-gray-600 dark:text-gray-300">${price}</span>
                             </div>
                             <div className="mr-4">
+                                <span className="font-bold text-gray-700 dark:text-gray-300">Purchase Count: </span>
+                                <span className="text-gray-600 dark:text-gray-300">{purchase_count}</span>
+                            </div>
+                            <div className="mr-4">
                                 <span className="font-bold text-gray-700 dark:text-gray-300">Made By: </span>
                                 <span className="text-gray-600 dark:text-gray-300">{madeBy}</span>
                             </div>
@@ -103,7 +117,7 @@ const FoodDetails = () => {
                             <div className="mt-4">
                                 <div className="">
                                     <button
-                                        onClick={handlePurchase}
+                                        onClick={() => handlePurchase(food)}  // Pass the food object
                                         className={`py-2 px-4 rounded-sm font-bold ${quantity === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-orange-600 hover:bg-orange-700 duration-300'} text-white`}
                                         disabled={quantity === 0}
                                     >
@@ -117,7 +131,6 @@ const FoodDetails = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 

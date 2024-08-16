@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoEyeOffSharp } from "react-icons/io5";
 import { MdRemoveRedEye } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
@@ -10,9 +10,11 @@ import "react-awesome-button/dist/styles.css";
 import Lottie from "lottie-react";
 import register from "../../../public/register.json";
 import { AuthContext } from "../../provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const navigate = useNavigate();
+  const location = useLocation()
   const { createUser, updateUserProfile, signInWithGoogle, githubLogin } = useContext(AuthContext); // Include githubLogin
   const [error, setError] = useState("");
   const [registerError, setRegisterError] = useState("");
@@ -68,20 +70,22 @@ const Register = () => {
 
   const continueWithGoogle = () => {
     signInWithGoogle().then((result) => {
-      navigate("/"); // Change to your desired redirect path
-      console.log(result);
+      navigate(location?.state ? location.state : "/");
     });
   };
 
   const continueWithGithub = () => {
     githubLogin().then((result) => {
-      navigate("/"); // Change to your desired redirect path
+      navigate("/");
       console.log(result);
     });
   };
 
   return (
     <div className="bg-gray-900 p-5 text-white">
+      <Helmet>
+        <title>Foodie's | Login</title>
+      </Helmet>
       <div className="flex md:flex-row-reverse flex-col sm:flex-col p-9 rounded-lg gap-5">
         <div className="flex-1">
           <h1 className="text-3xl font-bold text-teal-500">Create an Account</h1>
