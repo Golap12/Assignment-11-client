@@ -8,7 +8,6 @@ import { AuthContext } from './../provider/AuthProvider';
 
 const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
-  const [isHovering, setIsHovering] = useState(false);
 
   const handleLogout = () => {
     logOut();
@@ -58,7 +57,7 @@ const Nav = () => {
   );
 
   return (
-    <div className="flex items-center p-3 md:px-5 sticky top-0 z-10 bg-gray-900 text-white">
+    <div className="flex items-center p-3 md:px-5 sticky top-0 z-10 bg-gray-900 text-white h-[72px]">
       <div className="navbar-start items-center lg:justify-start justify-between flex w-full md:w-[50%]">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="lg:hidden  rounded-full p-[3px]">
@@ -159,9 +158,10 @@ const Nav = () => {
       <div className="navbar-end text-sm hidden md:flex">
 
         {user ? (
+
           <div className="dropdown dropdown-end flex items-center gap-2">
 
-            <div className="dropdown dropdown-end  rounded-full">
+            <div className="dropdown dropdown-end rounded-full">
               <div tabIndex={0} role="button" className="btn gap-0 bg-gray-700 hover:bg-gray-900 border-none rounded-full p-0 justify-center items-center">
                 <div className="flex justify-center items-center ">
                   <p className="p-1 rounded-l-full text-xs font-bold text-white">
@@ -197,19 +197,23 @@ const Nav = () => {
               </li>
             </ul>
           </div>
+
+
         ) : (
           <div className="dropdown dropdown-bottom dropdown-end backdrop-blur-xl">
+
+
             <div
               tabIndex={0}
               role="button"
-              className="px-2 py-1 rounded-full hover:bg-gray-800 hover:border border hover:text-white text-xl font-bold flex justify-center items-center text-black bg-white duration-200"
+              className="py-1 px-2 rounded-full hover:bg-gray-800  hover:text-white text-xl font-bold flex justify-center items-center text-black bg-white duration-200"
             >
               <span>
                 <BiSolidUserPlus size={20}></BiSolidUserPlus>
               </span>
               <span className="text-[16px]">Join Us</span>
             </div>
-            <ul tabIndex={0} className="rounded-b-xl md:mt-[10px] mr-[-20px] dropdown-content z-[1] menu p-2 shadow backdrop-blur-xl bg-gray-900 w-52 flex flex-col gap-2">
+            <ul tabIndex={0} className=" rounded-b-xl md:mt-[10px] mr-[-20px] dropdown-content z-[1] menu p-2 shadow backdrop-blur-xl bg-gray-900 w-52 flex flex-col gap-1">
               <Link
                 to="/login"
                 className="text-sm font-bold flex items-center gap-2 text-black bg-white rounded-md p-2"

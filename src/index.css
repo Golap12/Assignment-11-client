@@ -3,3 +3,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: #333; 
+    color: #ddd; 
+    text-decoration: none;
+    border: 1px solid #444;
+}
+
+.page-link:hover {
+    background-color: #444;
+}
+
+.active .page-link {
+    background-color: #007bff;
+    color: #fff; 
+}

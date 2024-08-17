@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { Navigate } from 'react-router-dom';
 import NoDataAnimation from '../components/NoDataAnimation';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 
 const MyAddedFood = () => {
     const [myData, setMyData] = useState([]);
@@ -19,7 +20,11 @@ const MyAddedFood = () => {
 
     const getAllFoodData = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/food/user/${user?.email}`);
+            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/food/user/${user?.email}`,
+                {
+                    withCredentials: true
+                }
+            );
             setMyData(data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -37,9 +42,7 @@ const MyAddedFood = () => {
         }
     };
 
-
     const handleUpdate = async (e) => {
-
         e.preventDefault();
         const form = e.target;
 
@@ -52,7 +55,6 @@ const MyAddedFood = () => {
         const foodOrigin = form.foodOrigin.value;
         const description = form.description.value;
 
-
         const updateFood = {
             foodName,
             foodImage,
@@ -64,31 +66,34 @@ const MyAddedFood = () => {
             description,
         };
 
-
         try {
-            const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/food/user/${editFood._id}`, updateFood)
-            toast.success("Update Success")
+            await axios.put(`${import.meta.env.VITE_API_URL}/food/user/${editFood._id}`, updateFood);
+            toast.success("Update Success");
             getAllFoodData();
-
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error);
         }
-
     };
-
 
     const handleEditClick = (food) => {
         setModal(true);
-        setEditFood(food)
-        console.log(food);
-
+        setEditFood(food);
     };
 
     const Modal = () => {
         return (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
-                <div className="bg-gray-800 rounded-lg md:p-10 p-5 shadow-lg max-w-xl w-full">
+            <motion.div
+                className="fixed inset-0 flex items-center justify-center px-5 md:px-0 bg-black bg-opacity-40 backdrop-blur-sm z-50"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+            >
+                <motion.div
+                    className="bg-gray-800 rounded-lg md:p-10 p-5 shadow-lg max-w-xl w-full"
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.4 }}
+                >
                     <h1 className="text-2xl font-bold mb-2 text-white text-center">Update Food Item</h1>
                     <p className="text-sm text-gray-300 mb-6 text-center">
                         Update the details of your food item below. Make sure all fields are filled in correctly before submitting.
@@ -197,28 +202,37 @@ const MyAddedFood = () => {
                             </button>
                         </div>
                     </form>
-                </div>
-            </div>
-
+                </motion.div>
+            </motion.div>
         );
     };
 
     return (
         <div className={`${modal && "h-[120vh] "} overflow-x-auto md:p-10 p-5 bg-gray-900 backdrop-blur-lg text-gray-300 relative`}>
-             <Helmet>
+            <Helmet>
                 <title>Foodie's | My Added</title>
             </Helmet>
-            <div className="overflow-hidden">
+            <motion.div
+                className="overflow-hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+            >
                 <h2 className="text-2xl font-bold text-white mb-4 text-center">Your Added Food List</h2>
                 <p className="text-gray-400 mb-6 text-center">
                     Here you can view, edit, or delete the food items you have ordered. Manage your orders efficiently!
                 </p>
-            </div>
+            </motion.div>
 
             {modal && <Modal />}
 
             {myData && myData.length > 0 ? (
-                <div className="overflow-x-auto">
+                <motion.div
+                    className="overflow-x-auto"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                >
                     <table className="min-w-full divide-y divide-gray-700">
                         <thead className='bg-gray-700'>
                             <tr>
@@ -231,7 +245,12 @@ const MyAddedFood = () => {
                         </thead>
                         <tbody className="bg-gray-800 divide-y divide-gray-700">
                             {myData.map((food) => (
-                                <tr key={food._id}>
+                                <motion.tr
+                                    key={food._id}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.4 }}
+                                >
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <img src={food.foodImage} alt={food.foodName} className="h-12 w-12 rounded-md" />
                                     </td>
@@ -246,16 +265,20 @@ const MyAddedFood = () => {
                                             <FaTrash size={20} />
                                         </button>
                                     </td>
-                                </tr>
+                                </motion.tr>
                             ))}
                         </tbody>
                     </table>
-                </div>
+                </motion.div>
             ) : (
-                <div className="flex flex-col items-center justify-center col-span-3">
+                <motion.div
+                    className="flex flex-col items-center justify-center col-span-3"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                >
                     <NoDataAnimation />
-                </div>
-               
+                </motion.div>
             )}
         </div>
     );

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const HomeFoodCard = ({ food }) => {
     return (
-        <div className="relative w-full shadow-[0px_5px_5px_4px_#2d3748] rounded-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
+        <div className="relative w-full shadow-[0px_0px_5px_4px_#702459] rounded-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
             <img className="w-full h-36 object-cover" src={food.foodImage} alt={food.foodName} />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-orange-500 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
             <div className="p-4 bg-gray-900 relative z-10">

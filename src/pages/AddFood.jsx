@@ -4,6 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 
 const AddFood = () => {
     const { user } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const AddFood = () => {
         const foodName = form.foodName.value;
         const foodImage = form.foodImage.value;
         const foodCategory = form.foodCategory.value;
-        const quantity = parseFloat(quantity);
+        const quantity = parseFloat(form.quantity.value);
         const price = parseFloat(form.price.value);
         const madeBy = user?.email;
         const foodOrigin = form.foodOrigin.value;
@@ -36,7 +37,7 @@ const AddFood = () => {
 
         try {
             const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/add-foods`, addFood);
-            toast.success("Added Success");
+            toast.success("Added Successfully");
             navigate("/myFood");
         } catch (error) {
             console.log(error);
@@ -50,7 +51,12 @@ const AddFood = () => {
             </Helmet>
             <h1 className="md:text-4xl text-2xl font-bold mb-8 text-center text-white">Add Food Item</h1>
             <form onSubmit={handleSubmit} className="bg-gray-800 shadow-md rounded-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="mb-4">
+                <motion.div
+                    className="mb-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4 }}
+                >
                     <label className="block text-gray-300">Food Name</label>
                     <input
                         name="foodName"
@@ -58,8 +64,13 @@ const AddFood = () => {
                         className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
                         required
                     />
-                </div>
-                <div className="mb-4">
+                </motion.div>
+                <motion.div
+                    className="mb-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                >
                     <label className="block text-gray-300">Food Image URL</label>
                     <input
                         name="foodImage"
@@ -67,8 +78,13 @@ const AddFood = () => {
                         className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
                         required
                     />
-                </div>
-                <div className="mb-4">
+                </motion.div>
+                <motion.div
+                    className="mb-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                >
                     <label className="block text-gray-300">Food Category</label>
                     <input
                         name="foodCategory"
@@ -76,8 +92,13 @@ const AddFood = () => {
                         className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
                         required
                     />
-                </div>
-                <div className="mb-4">
+                </motion.div>
+                <motion.div
+                    className="mb-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                >
                     <label className="block text-gray-300">Quantity</label>
                     <input
                         name="quantity"
@@ -86,8 +107,13 @@ const AddFood = () => {
                         min="1"
                         required
                     />
-                </div>
-                <div className="mb-4">
+                </motion.div>
+                <motion.div
+                    className="mb-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.4 }}
+                >
                     <label className="block text-gray-300">Price</label>
                     <input
                         name="price"
@@ -95,8 +121,13 @@ const AddFood = () => {
                         className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
                         required
                     />
-                </div>
-                <div className="mb-4">
+                </motion.div>
+                <motion.div
+                    className="mb-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.5 }}
+                >
                     <label className="block text-gray-300">Added By</label>
                     <input
                         defaultValue={user?.email}
@@ -105,8 +136,13 @@ const AddFood = () => {
                         className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
                         required
                     />
-                </div>
-                <div className="mb-4">
+                </motion.div>
+                <motion.div
+                    className="mb-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
+                >
                     <label className="block text-gray-300">Food Origin (Country)</label>
                     <input
                         name="foodOrigin"
@@ -114,8 +150,13 @@ const AddFood = () => {
                         className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded"
                         required
                     />
-                </div>
-                <div className="mb-4 col-span-1 md:col-span-2">
+                </motion.div>
+                <motion.div
+                    className="mb-4 col-span-1 md:col-span-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.7 }}
+                >
                     <label className="block text-gray-300">Description</label>
                     <textarea
                         name="description"
@@ -123,13 +164,16 @@ const AddFood = () => {
                         rows="4"
                         required
                     />
-                </div>
-                <button
+                </motion.div>
+                <motion.button
                     type="submit"
-                    className="w-full py-2 bg-blue-500 text-white font-bold rounded hover:bg-pink-400 col-span-1 md:col-span-2"
+                    className="w-full py-2 bg-blue-700 text-white font-bold rounded hover:bg-blue-500 col-span-1 md:col-span-2"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.8 }}
                 >
                     Add Item
-                </button>
+                </motion.button>
             </form>
         </div>
     );

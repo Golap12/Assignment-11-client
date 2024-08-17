@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import axios from 'axios';
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
@@ -11,6 +12,7 @@ import login from "../../../public/login.json";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
 
+
 const Login = () => {
   const { signIn, signInWithGoogle } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
@@ -18,7 +20,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const form = new FormData(e.currentTarget);
@@ -28,22 +30,37 @@ const Login = () => {
 
     setLoginError("");
 
-    signIn(email, password)
-      .then((result) => {
-        toast.success("Login Success")
-        navigate(location?.state ? location.state : "/");
-      })
-      .catch((error) => {
-        toast.error("Invalid Email or Password!")
-        setLoginError("Invalid Email or Password!");
-      });
+    try {
+      const result = await signIn(email, password);
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        { email: result?.user?.email },
+        { withCredentials: true }
+      );
+      toast.success("Login Success");
+      navigate(location?.state ? location.state : "/");
+    } catch (error) {
+      toast.error("Invalid Email or Password!");
+      setLoginError("Invalid Email or Password!");
+    }
   };
 
-  const continueWithGoogle = () => {
-    signInWithGoogle().then((result) => {
-      toast.success('Sign In Success')
+  const continueWithGoogle = async () => {
+    try {
+      const result = await signInWithGoogle();
+
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        { email: result?.user?.email },
+        { withCredentials: true }
+      );
+
+      toast.success('Sign In Success');
       navigate(location?.state ? location.state : "/");
-    });
+    } catch (err) {
+      console.error('Error during Google Sign-In:', err);
+      toast.error('Sign In Failed');
+    }
   };
 
   // const continueWithGithub = () => {
@@ -121,14 +138,14 @@ const Login = () => {
               </AwesomeButton>
             </p>
 
-            <p className="w-full">
+            {/* <p className="w-full">
               <AwesomeButton className="w-full" type="github">
                 <span>
                   <FaGithub size={30} />
                 </span>
                 <span className="ml-3 text-white">Continue With Github</span>
               </AwesomeButton>
-            </p>
+            </p> */}
           </div>
         </div>
 

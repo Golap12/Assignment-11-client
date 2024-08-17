@@ -11,16 +11,17 @@ import Lottie from "lottie-react";
 import register from "../../../public/register.json";
 import { AuthContext } from "../../provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation()
-  const { createUser, updateUserProfile, signInWithGoogle, githubLogin } = useContext(AuthContext); // Include githubLogin
+  const { createUser, updateUserProfile, signInWithGoogle,setUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [registerError, setRegisterError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     const form = new FormData(e.currentTarget);
@@ -48,38 +49,59 @@ const Register = () => {
       return;
     }
 
-    // Register User
-    createUser(email, password)
-      .then((result) => {
-        console.log(result.user);
-        updateUserProfile(name, photoURL)
-          .then(() => {
-            setTimeout(() => {
-              navigate("/login");
-            }, 2000);
-          })
-          .catch((error) => {
-            console.error("Error updating user profile:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Registration error:", error);
-        setRegisterError(error.message.slice(22, 50));
-      });
+    try {
+      // Register User
+      const result = await createUser(email, password);
+
+
+      try {
+        await updateUserProfile(name, photoURL);
+        setUser({...result?.user, photoURL: photoURL, displayName: name})
+
+
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}/jwt`,
+          { email: result?.user?.email },
+          { withCredentials: true }
+        );
+        
+        navigate(location?.state ? location.state : "/");
+        
+      } catch (error) {
+        console.error("Error updating user profile:", error);
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      setRegisterError(error.message.slice(22, 50));
+    }
   };
 
-  const continueWithGoogle = () => {
-    signInWithGoogle().then((result) => {
+
+  const continueWithGoogle = async () => {
+    try {
+      const result = await signInWithGoogle();
+
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        { email: result?.user?.email },
+        { withCredentials: true }
+      );
+      console.log('JWT Token Data:', data);
+
+      toast.success('Sign In Success');
       navigate(location?.state ? location.state : "/");
-    });
+    } catch (err) {
+      console.error('Error during Google Sign-In:', err);
+      toast.error('Sign In Failed');
+    }
   };
 
-  const continueWithGithub = () => {
-    githubLogin().then((result) => {
-      navigate("/");
-      console.log(result);
-    });
-  };
+  // const continueWithGithub = () => {
+  //   githubLogin().then((result) => {
+  //     navigate("/");
+  //     console.log(result);
+  //   });
+  // };
 
   return (
     <div className="bg-gray-900 p-5 text-white">
@@ -179,14 +201,14 @@ const Register = () => {
               </AwesomeButton>
             </p>
 
-            <p className="w-full" onClick={continueWithGithub}>
+            {/* <p className="w-full" onClick={continueWithGithub}>
               <AwesomeButton className="w-full" type="github">
                 <span>
                   <FaGithub size={30} />
                 </span>
                 <span className="ml-3 text-white">Continue With Github</span>
               </AwesomeButton>
-            </p>
+            </p> */}
           </div>
         </div>
 
