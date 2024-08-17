@@ -10,11 +10,13 @@
 - **My Ordered Food Page** 📋: Users can view the food items they have ordered.
 - **Food Details Page** 📜: Shows detailed information about a specific food item.
 - **Checkout Page** 💳: Facilitates the purchase process.
+- **JWT Authentication** 🔒: Securely authenticates users using JSON Web Tokens, protecting routes that require user login.
 
 ## Technologies 🛠️
 
 - **React** :gear: - A JavaScript library for building user interfaces.
 - **MongoDB** :database: - A NoSQL database for storing data.
+- **JWT** :key: - JSON Web Tokens for secure authentication and authorization.
 - **React Icons** :octocat: - Provides popular icons for React applications.
 - **Framer Motion** :sparkles: - A library for animations in React.
 - **Lottie React** :star2: - A library for rendering Lottie animations in React.
@@ -23,6 +25,18 @@
 ## Responsive Design 📱
 
 The website is fully responsive, ensuring a good experience on both mobile and desktop devices.
+
+## JWT Authentication 🔒
+
+This project uses JSON Web Tokens (JWT) for secure authentication and authorization. JWT ensures that only authenticated users can access protected routes.
+
+### How JWT Works:
+
+1. **User Login**: On login, a JWT is generated and sent to the client.
+2. **Token Storage**: The token is stored on the client-side (e.g., localStorage or HTTP-only cookie).
+3. **Authenticated Requests**: The JWT is included in the `Authorization` header for requests to protected routes.
+4. **Token Verification**: The server verifies the JWT to confirm the user's identity and permissions.
+5. **Logout**: On logout, the JWT is invalidated on the client-side.
 
 ## Setup 🚀
 

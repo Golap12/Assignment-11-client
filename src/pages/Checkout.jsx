@@ -122,7 +122,7 @@ const Checkout = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="p-6">
+                <div className="md:p-6 p-4">
                     <div className="flex flex-col md:flex-row">
                         <motion.div
                             className="relative w-full md:w-1/2"
@@ -137,7 +137,7 @@ const Checkout = () => {
                             />
                         </motion.div>
 
-                        <div className="flex-auto p-6">
+                        <div className="flex-auto md:p-6 py-5">
                             <motion.h2
                                 className="text-2xl font-bold text-gray-100 mb-4"
                                 initial={{ opacity: 0, x: 20 }}
@@ -146,9 +146,9 @@ const Checkout = () => {
                             >
                                 {foodName}
                             </motion.h2>
-                            <p className="text-gray-300 mb-4">{description}</p>
+                            <p className="text-gray-300 text-sm mb-4">{description}</p>
 
-                            <div className="flex flex-col md:flex-row md:justify-between">
+                            <div className="flex justify-between">
 
                                 {/* Icons and Titles */}
                                 <div className="flex flex-col space-y-4 ">

@@ -13,7 +13,7 @@ const Hero = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
                     >
-                        <div className="text-4xl font-bold">
+                        <div className="md:text-4xl text-2xl font-bold">
                             Foodie's<span className="text-red-600">Haven</span>
                         </div>
                     </motion.nav>
@@ -25,7 +25,7 @@ const Hero = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
                             <motion.h1 
-                                className="text-4xl lg:text-6xl font-bold"
+                                className="md:text-4xl text-3xl lg:text-6xl font-bold"
                                 initial={{ x: -50, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ duration: 1 }}
@@ -39,7 +39,7 @@ const Hero = () => {
                                 transition={{ duration: 0.8, delay: 0.3 }}
                             ></motion.div>
                             <motion.p 
-                                className="text-xl mb-10"
+                                className="md:text-lg text-sm mb-10"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1, delay: 0.5 }}
@@ -48,7 +48,7 @@ const Hero = () => {
                             </motion.p>
                             <Link to='/allFood'>
                                 <motion.button 
-                                    className="bg-red-500 hover:bg-white hover:text-red-500 transition-all duration-300 text-white text-2xl font-semibold px-4 py-2 rounded shadow"
+                                    className="bg-red-500 hover:bg-white hover:text-red-500 transition-all duration-300 text-white md:text-2xl font-semibold px-4 py-2 rounded shadow"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     initial={{ opacity: 0, y: 50 }}
@@ -65,7 +65,7 @@ const Hero = () => {
             <motion.img 
                 src="https://images.unsplash.com/photo-1536147116438-62679a5e01f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" 
                 alt="Delicious Food" 
-                className="w-full h-48 object-cover sm:h-screen sm:w-4/12"
+                className="w-full h-48 object-cover sm:h-screen sm:w-4/12 px-4 md:px-0"
                 initial={{ x: 100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 1, delay: 0.7 }}

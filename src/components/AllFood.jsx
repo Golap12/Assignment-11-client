@@ -47,7 +47,7 @@ const AllFoodPage = () => {
         <div className="container mx-auto py-8">
             <div className='flex flex-col justify-center items-center'>
                 <motion.h1
-                    className="md:text-3xl text-xl font-bold mb-6 text-center text-white"
+                    className="md:text-3xl text-2xl font-bold mb-6 md:text-center  w-[90%] text-white"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
@@ -55,7 +55,7 @@ const AllFoodPage = () => {
                     Browse Our Extensive Food Collection
                 </motion.h1>
                 <motion.p
-                    className="text-center text-sm text-gray-400 mb-8 md:w-9/12"
+                    className="md:text-center text-sm text-gray-400 mb-8 w-[90%] md:w-9/12"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
@@ -65,7 +65,7 @@ const AllFoodPage = () => {
             </div>
 
             <div className="flex flex-col items-center mb-6">
-                <div className="flex items-center bg-gray-700 p-1 rounded-full shadow-lg">
+                <div className="flex w-[60%] md:w-[50%] items-center bg-gray-700 p-1 rounded-full shadow-lg">
                     <input
                         type="text"
                         placeholder="Search Food"
@@ -74,14 +74,14 @@ const AllFoodPage = () => {
                             setSearchTerm(e.target.value);
                             handleSearch();
                         }}
-                        className="w-full max-w-md p-2 bg-gray-800 text-white border border-gray-600 rounded-full focus:outline-none"
+                        className="w-full  p-1 bg-gray-800 text-white border border-gray-600 rounded-full focus:outline-none"
                     />
                     <button
                         onClick={() => {
                             setSearchTerm('');
                             setFoods(allFoods);
                         }}
-                        className="ml-2 py-2 px-4 bg-gray-600 text-white rounded-full hover:bg-gray-500">
+                        className="ml-2 py-1 px-2 bg-gray-600 text-white rounded-full hover:bg-gray-500">
                         Clear
                     </button>
                 </div>
@@ -89,7 +89,7 @@ const AllFoodPage = () => {
 
             {loading && <Loading></Loading>}
 
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 lg:px-20 px-10 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 lg:px-20 md:px-10 px-5 gap-6">
                 {foods.map((food) => (
                     <motion.div
                         key={food._id}

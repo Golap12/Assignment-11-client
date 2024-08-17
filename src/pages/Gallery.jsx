@@ -123,7 +123,7 @@ const Gallery = () => {
             </Helmet>
             {modal && <Modal />}
             <motion.h1
-                className="text-3xl font-bold text-white text-center mb-2"
+                className="md:text-3xl text-2xl font-bold text-white md:text-center mb-2"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -131,7 +131,7 @@ const Gallery = () => {
                 Gallery
             </motion.h1>
             <motion.p
-                className="text-gray-400 text-center mb-10"
+                className="text-gray-400 md:text-center mb-10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}

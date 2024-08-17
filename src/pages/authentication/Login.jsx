@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+// import { FaGithub } from "react-icons/fa";
 import { AwesomeButton } from "react-awesome-button";
 import "react-awesome-button/dist/styles.css";
 import { Helmet } from "react-helmet-async";

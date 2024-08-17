@@ -5,6 +5,7 @@ import { MdOutlineLogout } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { AuthContext } from './../provider/AuthProvider';
+import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -19,12 +20,12 @@ const Nav = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? "md:text-[16px] text-[12px] p-1  md:font-bold"
-              : "md:text-[16px] text-[12px] p-1 md:font-bold text-orange-500"
+              ? "md:text-[12px] text-[12px] p-1  md:font-bold"
+              : "md:text-[12px] text-[12px] p-1 md:font-bold text-orange-500"
           }
           to="/"
         >
-          Home
+          HOME
         </NavLink>
       </li>
 
@@ -32,12 +33,12 @@ const Nav = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? "md:text-[16px] text-[12px] p-1  md:font-bold"
-              : "md:text-[16px] text-[12px] p-1 md:font-bold text-orange-500"
+              ? "md:text-[12px] text-[12px] p-1  md:font-bold"
+              : "md:text-[12px] text-[12px] p-1 md:font-bold text-orange-500"
           }
           to="/allFood"
         >
-          Foods
+          FOODS
         </NavLink>
       </li>
 
@@ -45,12 +46,12 @@ const Nav = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? "md:text-[16px] text-[12px] p-1  md:font-bold"
-              : "md:text-[16px] text-[12px] p-1 md:font-bold text-orange-500"
+              ? "md:text-[12px] text-[12px] p-1  md:font-bold"
+              : "md:text-[12px] text-[12px] p-1 md:font-bold text-orange-500"
           }
           to="/gallery"
         >
-          Gallery
+          GALLERY
         </NavLink>
       </li>
     </>
@@ -72,13 +73,13 @@ const Nav = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
+                d="M4 6h12M4 12h8m-8 6h12"
               />
             </svg>
           </div>
           <ul
             tabIndex={0}
-            className="bg-gray-900 rounded-b-lg p-2 *:bg-white *:text-black *:p-1 *:rounded-md dropdown-content md:mt-6 mt-[16px] px-2 space-y-2 w-40 ml-[-15px] gap-2 nav font-bold md:ml-[-20px]"
+            className="bg-gray-900 rounded-b-lg p-2 *:bg-gray-800  *:p-1 *:rounded-md dropdown-content md:mt-6 mt-[12px] px-2 space-y-2 w-40 ml-[-15px] gap-2 nav font-bold md:ml-[-20px]"
           >
             {links}
           </ul>
@@ -95,8 +96,7 @@ const Nav = () => {
 
             <div className="dropdown dropdown-end  rounded-full relative">
               <div tabIndex={0} role="button" className="btn btn-ghost gap-0 p-1">
-                {/* <p className="text-xs absolute right-9 w-20 ">{user ? user.displayName : ''}</p> */}
-                <div className="w-8 rounded-full">
+                <div className="w-7 rounded-full">
                   <img className="w-full rounded-full"
                     alt="no photo"
                     src={user.photoURL} />
@@ -105,16 +105,26 @@ const Nav = () => {
               <ul
                 tabIndex={0}
                 className="bg-gray-900 menu menu-sm dropdown-content rounded-b-md z-[1] mt-3 w-32 p-2 shadow flex flex-col gap-2">
-                <Link to='/myFood'><li className="p-1 bg-white text-black rounded-md text-xs font-bold">My Food</li>
+
+                  
+                <Link to='/myFood' className="p-1 bg-white flex gap-1 items-center text-black rounded-md text-xs font-bold">
+                <FaArrowAltCircleRight size={12} />
+                  <li>MY ADDED</li>
                 </Link>
-                <Link to='/addFood'><li className="p-1 bg-white text-black rounded-md text-xs font-bold">Add food</li>
+                <Link to='/addFood' className="p-1 bg-white flex gap-1 items-center text-black rounded-md text-xs font-bold">
+                <FaArrowAltCircleRight size={12} />
+                  <li>ADD FOOD</li>
                 </Link>
-                <Link to='/myOrderFood'><li className="p-1 bg-white text-black rounded-md text-xs font-bold"> Ordered Food</li>
+                <Link to='/myOrderFood' className="p-1 bg-white flex gap-1 items-center text-black rounded-md text-xs font-bold">
+                <FaArrowAltCircleRight size={12} />
+                  <li>MY ORDERED</li>
                 </Link>
-                <div className="flex gap-2 items-center p-1 bg-white text-black rounded-md text-xs font-bold">
-                <li onClick={handleLogout} className=""> Logout</li> 
-                  <MdOutlineLogout color="red"></MdOutlineLogout>
-                   
+
+                <div className="p-1 bg-white flex gap-1 items-center text-black rounded-md text-xs font-bold">
+                <MdOutlineLogout color="red"></MdOutlineLogout>
+                  <li onClick={handleLogout} className=""> LOGOUT</li>
+                  
+
                 </div>
 
               </ul>
@@ -129,18 +139,18 @@ const Nav = () => {
                 <BiSolidUserPlus size={25}></BiSolidUserPlus>
               </span>
             </div>
-            <ul tabIndex={0} className="bg-gray-900 dropdown-content rounded-b-lg z-[1] menu shadow mt-[15px] mr-[-12px] w-32">
-              <Link to={"/login"} className="md:hidden bg-gray-200 rounded-full p-1 font-semibold text-sm text-black flex items-center gap-2 mb-3">
+            <ul tabIndex={0} className="bg-gray-900 dropdown-content rounded-b-sm z-[1] menu shadow mt-[15px] mr-[-12px] w-32">
+              <Link to={"/login"} className="md:hidden bg-gray-800 rounded-sm p-1 font-medium text-xs flex items-center gap-2 mb-3">
                 <span>
                   <FiUser size={15} color="#ff6b6b"></FiUser>
                 </span>
-                <span>Login</span>
+                <span>LOGIN</span>
               </Link>
-              <Link to={"/register"} className="md:hidden bg-gray-200 rounded-full p-1 font-semibold text-sm text-black flex items-center gap-2 mb-3">
+              <Link to={"/register"} className="md:hidden bg-gray-800 rounded-sm p-1 font-medium text-xs flex items-center gap-2 mb-3">
                 <span>
                   <FiUser size={15} color="#ff6b6b"></FiUser>
                 </span>
-                <span>Register</span>
+                <span>REGISTER</span>
               </Link>
             </ul>
           </div>
@@ -176,27 +186,38 @@ const Nav = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="bg-gray-900 menu menu-sm dropdown-content rounded-b-md z-[1] mt-3 w-52 p-2 shadow flex flex-col gap-2">
+                className="bg-gray-900 menu menu-sm dropdown-content rounded-b-xl z-[1] mt-3 w-52 p-2 shadow flex flex-col gap-2">
 
-                <Link to='/myFood'><li className="p-2 bg-white text-black rounded-full text-sm font-bold">My Add Food</li>
+                <Link to='/MYfOOD' className="p-2 flex gap-2 items-center bg-white text-black rounded-full text-sm font-bold">
+                  <FaArrowAltCircleRight size={20} />
+                  <li>MY ADDED FOOD</li>
                 </Link>
-                <Link to='/addFood'><li className="p-2 bg-white text-black rounded-full text-sm font-bold">Add a food</li>
+
+
+                <Link to='/addFood' className="p-2 flex gap-2 items-center bg-white text-black rounded-full text-sm font-bold">
+                  <FaArrowAltCircleRight size={20} />
+                  <li>ADD FOOD</li>
                 </Link>
-                <Link to='/myOrderFood'><li className="p-2 bg-white text-black rounded-full text-sm font-bold">My Ordered Food</li>
+
+
+                <Link to='/myOrderFood' className="p-2 flex gap-2 items-center bg-white text-black rounded-full text-sm font-bold">
+                  <FaArrowAltCircleRight size={20} />
+                  <li>MY ORDERED</li>
                 </Link>
+
+
+                <button onClick={handleLogout} className="flex gap-2 p-2 bg-red-500  rounded-full text-sm font-bold">
+                  <RiLogoutCircleRLine size={20} />
+                  <p>Logout</p>
+                </button>
 
               </ul>
             </div>
 
-            <ul className="px-2 py-1 flex flex-col items-center hover:text-red-600 hover:transition-all duration-300 text-center font-bold  rounded-full">
 
-              <li>
-                <button onClick={handleLogout}>
-                  <RiLogoutCircleRLine size={25} />
-                </button>
-              </li>
-            </ul>
           </div>
+
+
 
 
         ) : (
@@ -206,32 +227,32 @@ const Nav = () => {
             <div
               tabIndex={0}
               role="button"
-              className="py-1 px-2 rounded-full hover:bg-gray-800  hover:text-white text-xl font-bold flex justify-center items-center text-black bg-white duration-200"
+              className=" lg:p-2 md:px-1 md:py-[6px] rounded-full hover:bg-gray-900 text-xl font-bold gap-2 flex justify-center items-center text-orange-500 bg-gray-800 duration-200"
             >
               <span>
-                <BiSolidUserPlus size={20}></BiSolidUserPlus>
+                <BiSolidUserPlus size={25}></BiSolidUserPlus>
               </span>
-              <span className="text-[16px]">Join Us</span>
+              <span className="text-[14px]">JOIN US</span>
             </div>
-            <ul tabIndex={0} className=" rounded-b-xl md:mt-[10px] mr-[-20px] dropdown-content z-[1] menu p-2 shadow backdrop-blur-xl bg-gray-900 w-52 flex flex-col gap-1">
+            <ul tabIndex={0} className=" rounded-b-xl md:mt-[10px] mr-[-20px] dropdown-content z-[1] menu p-2 shadow backdrop-blur-xl bg-gray-900 w-52 flex flex-col gap-2">
               <Link
                 to="/login"
-                className="text-sm font-bold flex items-center gap-2 text-black bg-white rounded-md p-2"
+                className="font-semibold text-xs flex items-center gap-2 bg-gray-800 rounded-md p-2"
               >
                 <span>
-                  <FiUser color="" size={15}></FiUser>
+                  <FiUser size={20}></FiUser>
                 </span>
-                <span>Login</span>
+                <span className="">LOGIN</span>
               </Link>
 
               <Link
                 to="/register"
-                className="text-sm font-bold flex items-center gap-2 text-black bg-white rounded-md p-2"
+                className="text-xs font-semibold flex items-center gap-2 bg-gray-800 rounded-md p-2"
               >
                 <span>
-                  <FiUser color="" size={15}></FiUser>
+                  <FiUser size={20}></FiUser>
                 </span>
-                <span>Register</span>
+                <span>REGISTER</span>
               </Link>
             </ul>
           </div>

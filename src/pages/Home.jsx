@@ -46,7 +46,7 @@ const Home = () => {
             <div className="container mx-auto p-6 bg-gray-900 mt-10">
                 <div className="text-center flex flex-col justify-center items-center mb-8">
                     <h2 className="md:text-3xl text-2xl font-bold text-orange-500">Top Selling Foods</h2>
-                    <p className="text-gray-400 text-sm w-1/2 mt-2">
+                    <p className="text-gray-400 text-sm md:w-1/2 mt-2">
                         Explore our top-selling dishes made with premium ingredients, ensuring a delightful experience for every craving.
                     </p>
                 </div>

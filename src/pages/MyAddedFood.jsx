@@ -208,7 +208,7 @@ const MyAddedFood = () => {
     };
 
     return (
-        <div className={`${modal && "h-[120vh] "} overflow-x-auto md:p-10 p-5 bg-gray-900 backdrop-blur-lg text-gray-300 relative`}>
+        <div className={`${modal && "md:h-[120vh] h-[1080px] "} overflow-x-auto md:p-10 p-5 bg-gray-900 backdrop-blur-lg text-gray-300 relative`}>
             <Helmet>
                 <title>Foodie's | My Added</title>
             </Helmet>

@@ -69,7 +69,7 @@ const Testimonial = () => {
                     </ul>
 
 
-                    <ul className="hidden space-y-8 sm:block">
+                    <ul className=" space-y-8 sm:block">
                         <li className="text-sm leading-6">
                             <div className="relative group">
                                 <div
@@ -117,7 +117,7 @@ const Testimonial = () => {
                     </ul>
 
 
-                    <ul className="hidden space-y-8 lg:block">
+                    <ul className=" space-y-8 lg:block">
                         <li className="text-sm leading-6">
                             <div className="relative group">
                                 <div
